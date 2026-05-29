@@ -24,6 +24,7 @@
                 <a href="#home">首页</a>
                 <a href="#skills">技能</a>
                 <a href="#blog">博客</a>
+                <a href="#github">足迹</a>
                 <a href="{{ '/about/' | relative_url }}">关于</a>
             </nav>
         </div>
@@ -137,6 +138,30 @@
         </div>
     </section>
 
+    <section id="github" class="section">
+        <div class="container">
+            <h2 class="section-title reveal">🟩 编码足迹</h2>
+            <p class="section-subtitle reveal">// GitHub contribution graph</p>
+            <div class="contrib-card reveal">
+                <div class="contrib-header">
+                    <span class="contrib-title"><i class="fa-brands fa-github"></i> @{{ site.github_username }}</span>
+                    <span class="contrib-summary" id="contribSummary">加载中…</span>
+                </div>
+                <div class="contrib-grid" id="contribGrid" aria-label="GitHub contribution heatmap"></div>
+                <div class="contrib-legend">
+                    <span>少</span>
+                    <i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i>
+                    <span>多</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="切换主题">
+        <span class="theme-toggle-icon">🎨</span>
+        <span class="theme-toggle-label">极光</span>
+    </button>
+
     <footer class="footer">
         <div class="container">
             <div class="footer-links">
@@ -230,6 +255,94 @@
                 }
             } else { idx = 0; }
         });
+
+        // 6) 3D tilt on cards
+        if (matchMedia('(pointer:fine)').matches) {
+            document.querySelectorAll('.skill-item, .blog-item').forEach(function(card){
+                card.addEventListener('mousemove', function(e){
+                    var r = card.getBoundingClientRect();
+                    var px = (e.clientX - r.left) / r.width;
+                    var py = (e.clientY - r.top) / r.height;
+                    var rx = (0.5 - py) * 10;
+                    var ry = (px - 0.5) * 12;
+                    card.style.transform = 'perspective(900px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-6px)';
+                    card.style.setProperty('--mx', (px*100)+'%');
+                    card.style.setProperty('--my', (py*100)+'%');
+                });
+                card.addEventListener('mouseleave', function(){
+                    card.style.transform = '';
+                });
+            });
+        }
+
+        // 7) Theme switcher (aurora / cyberpunk / minimal)
+        var themes = ['aurora', 'cyberpunk', 'minimal'];
+        var labels = { aurora: '极光', cyberpunk: '赛博', minimal: '极简' };
+        var saved = localStorage.getItem('theme') || 'aurora';
+        function applyTheme(t){
+            document.documentElement.setAttribute('data-theme', t);
+            var btn = document.getElementById('themeToggle');
+            if (btn) btn.querySelector('.theme-toggle-label').textContent = labels[t];
+            localStorage.setItem('theme', t);
+        }
+        applyTheme(saved);
+        var tbtn = document.getElementById('themeToggle');
+        if (tbtn) {
+            tbtn.addEventListener('click', function(){
+                var cur = document.documentElement.getAttribute('data-theme') || 'aurora';
+                var next = themes[(themes.indexOf(cur) + 1) % themes.length];
+                applyTheme(next);
+            });
+        }
+
+        // 8) GitHub contribution heatmap (unauthenticated GitHub Events API → last ~90 days)
+        (function loadContrib(){
+            var grid = document.getElementById('contribGrid');
+            var summary = document.getElementById('contribSummary');
+            if (!grid) return;
+            var DAYS = 91; // 13 weeks
+            var today = new Date(); today.setHours(0,0,0,0);
+            var counts = {};
+            for (var i = 0; i < DAYS; i++) {
+                var d = new Date(today); d.setDate(today.getDate() - i);
+                counts[d.toISOString().slice(0,10)] = 0;
+            }
+            function render(total){
+                grid.innerHTML = '';
+                // build columns oldest -> newest
+                var cells = [];
+                for (var i = DAYS - 1; i >= 0; i--) {
+                    var d = new Date(today); d.setDate(today.getDate() - i);
+                    var key = d.toISOString().slice(0,10);
+                    var c = counts[key] || 0;
+                    var lv = c === 0 ? 0 : c < 2 ? 1 : c < 5 ? 2 : c < 10 ? 3 : 4;
+                    cells.push({ key: key, c: c, lv: lv, dow: d.getDay() });
+                }
+                cells.forEach(function(cell){
+                    var el = document.createElement('i');
+                    el.className = 'cell lv' + cell.lv;
+                    el.setAttribute('title', cell.key + ' · ' + cell.c + ' contributions');
+                    el.style.gridRow = (cell.dow + 1);
+                    grid.appendChild(el);
+                });
+                if (summary) summary.textContent = total + ' contributions in the last ' + DAYS + ' days';
+            }
+            fetch('https://api.github.com/users/{{ site.github_username }}/events/public?per_page=100')
+                .then(function(r){ return r.ok ? r.json() : []; })
+                .then(function(events){
+                    var total = 0;
+                    (events || []).forEach(function(ev){
+                        var day = (ev.created_at || '').slice(0,10);
+                        if (!(day in counts)) return;
+                        var add = 1;
+                        if (ev.type === 'PushEvent' && ev.payload && ev.payload.commits) add = ev.payload.commits.length;
+                        counts[day] += add;
+                        total += add;
+                    });
+                    render(total);
+                })
+                .catch(function(){ render(0); if (summary) summary.textContent = '加载失败 · GitHub API rate limit'; });
+        })();
     })();
     </script>
 </body>

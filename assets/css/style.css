@@ -837,3 +837,175 @@ tr:last-child td { border-bottom: none; }
   .skills-grid { grid-template-columns: 1fr; }
   .footer-links { gap: 1rem; }
 }
+
+/* =========================================================
+   Contribution heatmap
+   ========================================================= */
+.contrib-card {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  padding: 1.5rem 1.75rem;
+  backdrop-filter: blur(14px);
+}
+.contrib-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;
+}
+.contrib-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.contrib-title i { color: var(--neon-cyan); margin-right: 0.4rem; }
+.contrib-summary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.contrib-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 14px);
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+.contrib-grid .cell {
+  width: 14px; height: 14px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.05);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.contrib-grid .cell:hover { transform: scale(1.4); }
+.contrib-grid .cell.lv0 { background: rgba(255,255,255,0.05); }
+.contrib-grid .cell.lv1 { background: rgba(168, 85, 247, 0.30); }
+.contrib-grid .cell.lv2 { background: rgba(168, 85, 247, 0.55); }
+.contrib-grid .cell.lv3 { background: rgba(56, 189, 248, 0.75); box-shadow: 0 0 6px rgba(56, 189, 248, 0.4); }
+.contrib-grid .cell.lv4 { background: var(--grad-aurora); box-shadow: 0 0 8px rgba(168, 85, 247, 0.6); }
+
+.contrib-legend {
+  display: flex; align-items: center; justify-content: flex-end;
+  gap: 4px; margin-top: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+.contrib-legend i {
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  display: inline-block;
+}
+.contrib-legend i.lv0 { background: rgba(255,255,255,0.05); }
+.contrib-legend i.lv1 { background: rgba(168, 85, 247, 0.30); }
+.contrib-legend i.lv2 { background: rgba(168, 85, 247, 0.55); }
+.contrib-legend i.lv3 { background: rgba(56, 189, 248, 0.75); }
+.contrib-legend i.lv4 { background: var(--grad-aurora); }
+
+/* =========================================================
+   Theme switcher button
+   ========================================================= */
+.theme-toggle {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 1000;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.7rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 18px rgba(168, 85, 247, 0.18);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.theme-toggle:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: var(--neon-purple);
+  box-shadow: 0 12px 32px rgba(168, 85, 247, 0.35);
+}
+.theme-toggle .theme-toggle-icon { font-size: 1.05rem; }
+
+/* 3D tilt highlight overlay */
+.skill-item, .blog-item {
+  --mx: 50%; --my: 50%;
+  transition: transform 0.25s cubic-bezier(.2,.7,.2,1), box-shadow 0.4s, border-color 0.3s;
+  will-change: transform;
+}
+.skill-item::after, .blog-item::before {
+  pointer-events: none;
+}
+.skill-item:hover, .blog-item:hover {
+  background-image: radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,0.10) 0%, transparent 45%);
+}
+
+/* =========================================================
+   Theme variants — aurora (default) / cyberpunk / minimal
+   ========================================================= */
+:root[data-theme="cyberpunk"] {
+  --neon-pink:    #ff2d95;
+  --neon-purple:  #ff2d95;
+  --neon-blue:    #00fff7;
+  --neon-cyan:    #00fff7;
+  --neon-lime:    #fff200;
+  --neon-orange:  #ff7a00;
+  --bg-0:         #0a0014;
+  --bg-1:         #14001f;
+  --bg-card:      rgba(28, 0, 42, 0.55);
+  --border-soft:  rgba(255, 0, 200, 0.15);
+  --border-glow:  rgba(255, 45, 149, 0.45);
+  --text-primary: #fff8ff;
+  --text-secondary: #d6a6ff;
+  --text-muted:   #8a5fa8;
+  --grad-aurora:  linear-gradient(120deg, #ff2d95 0%, #ff7a00 50%, #00fff7 100%);
+  --grad-button:  linear-gradient(135deg, #ff2d95 0%, #00fff7 100%);
+  --grad-card:    linear-gradient(135deg, rgba(255,45,149,0.18) 0%, rgba(0,255,247,0.12) 100%);
+  --primary-color:  #ff2d95;
+  --primary-light:  #ff77c3;
+  --secondary-color:#00fff7;
+  --gradient-primary: linear-gradient(135deg, #ff2d95 0%, #00fff7 100%);
+}
+
+:root[data-theme="minimal"] {
+  --neon-pink:    #6366f1;
+  --neon-purple:  #6366f1;
+  --neon-blue:    #0ea5e9;
+  --neon-cyan:    #0ea5e9;
+  --neon-lime:    #10b981;
+  --neon-orange:  #f59e0b;
+  --bg-0:         #fafafa;
+  --bg-1:         #ffffff;
+  --bg-card:      rgba(255, 255, 255, 0.85);
+  --border-soft:  rgba(0, 0, 0, 0.08);
+  --border-glow:  rgba(99, 102, 241, 0.3);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted:   #94a3b8;
+  --grad-aurora:  linear-gradient(120deg, #6366f1 0%, #0ea5e9 100%);
+  --grad-button:  linear-gradient(135deg, #6366f1 0%, #0ea5e9 100%);
+  --grad-card:    linear-gradient(135deg, rgba(99,102,241,0.10) 0%, rgba(14,165,233,0.06) 100%);
+  --shadow-card:  0 12px 36px rgba(15, 23, 42, 0.08);
+  --primary-color:  #6366f1;
+  --primary-light:  #818cf8;
+  --secondary-color:#0ea5e9;
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #0ea5e9 100%);
+}
+:root[data-theme="minimal"] body { background: #fafafa; color: #0f172a; }
+:root[data-theme="minimal"] body::before { opacity: 0.4; filter: blur(20px) saturate(120%); }
+:root[data-theme="minimal"] body::after {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+}
+:root[data-theme="minimal"] .starfield { display: none; }
+:root[data-theme="minimal"] .cursor-blob { opacity: 0.4; }
+:root[data-theme="minimal"] .header { background: rgba(255,255,255,0.85); }
+:root[data-theme="minimal"] .contrib-grid .cell.lv0 { background: rgba(0,0,0,0.05); }
+:root[data-theme="minimal"] .footer { background: rgba(255,255,255,0.95); }
+
