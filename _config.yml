@@ -37,7 +37,7 @@ social_links:
 projects:
   - name: 阿尔茨海默症多模态数据融合与智能分期诊断方法研究
     description: 基于深度学习的阿尔茨海默病早期诊断系统，融合多模态医学数据实现智能分期诊断
-    repo: https://github.com/xuanxuanwuhh/AD_Diagnosis_System
+    repo: https://github.com/xuanxuanwuhh
     tags: [深度学习, 多模态融合, 医学诊断, PyTorch]
 
 show_excerpts: true
