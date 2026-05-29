@@ -1,0 +1,16 @@
+services:
+  jekyll:
+    image: jekyll/jekyll:latest
+    container_name: jekyll-dev
+    ports:
+      - "4000:4000"
+      - "35729:35729"
+    volumes:
+      - .:/srv/jekyll
+      - jekyll-cache:/usr/local/bundle
+    command: bash -c "bundle install && jekyll serve --watch --force_polling --host 0.0.0.0"
+    environment:
+      - JEKYLL_ENV=development
+
+volumes:
+  jekyll-cache:
