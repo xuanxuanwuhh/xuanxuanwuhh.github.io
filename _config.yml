@@ -4,7 +4,6 @@ baseurl: ""
 url: "https://xuanxuanwuhh.github.io"
 
 email: 15620168919@163.com
-twitter_username: xuanxuanwuhh
 github_username: xuanxuanwuhh
 
 markdown: kramdown
@@ -30,8 +29,7 @@ author:
   avatar: https://api.dicebear.com/7.x/avataaars/svg?seed=xuanxuanwuhh
 
 social_links:
-  - { platform: github,   url: "https://github.com/xuanxuanwuhh" }
-  - { platform: twitter,  url: "https://twitter.com/xuanxuanwuhh" }
-  - { platform: linkedin, url: "https://linkedin.com/in/xuanxuanwuhh" }
+  - { platform: github, url: "https://github.com/xuanxuanwuhh" }
+  - { platform: email,  url: "mailto:15620168919@163.com" }
 
 show_excerpts: true

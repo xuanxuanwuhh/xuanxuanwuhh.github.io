@@ -34,7 +34,6 @@ permalink: /about/
 
 - 📧 邮箱：[15620168919@163.com](mailto:15620168919@163.com)
 - 🐙 GitHub：[@xuanxuanwuhh](https://github.com/xuanxuanwuhh)
-- 🐦 Twitter：[@xuanxuanwuhh](https://twitter.com/xuanxuanwuhh)
 
 > 这个网站本身也是我学习 Jekyll、GitHub Actions、Docker 的练手项目。
 > 欢迎随便逛，记得收藏一下！✨
