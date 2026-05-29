@@ -1,5 +1,5 @@
 title: Xuanxuan Wu
-description: 全栈开发者 · 一直在学习 · 用代码记录世界 ✨
+description: 全栈开发者 · 云南大学智能科学与技术 · 用代码记录世界 ✨
 baseurl: ""
 url: "https://xuanxuanwuhh.github.io"
 
@@ -27,9 +27,17 @@ author:
   name: Xuanxuan Wu
   bio: 全栈开发者 · 热爱技术 · 持续学习
   avatar: https://api.dicebear.com/7.x/avataaars/svg?seed=xuanxuanwuhh
+  education: 云南大学 · 智能科学与技术（本科）
+  location: 昆明
 
 social_links:
   - { platform: github, url: "https://github.com/xuanxuanwuhh" }
   - { platform: email,  url: "mailto:15620168919@163.com" }
+
+projects:
+  - name: 阿尔茨海默症多模态数据融合与智能分期诊断方法研究
+    description: 基于深度学习的阿尔茨海默病早期诊断系统，融合多模态医学数据实现智能分期诊断
+    repo: https://github.com/xuanxuanwuhh/AD_Diagnosis_System
+    tags: [深度学习, 多模态融合, 医学诊断, PyTorch]
 
 show_excerpts: true

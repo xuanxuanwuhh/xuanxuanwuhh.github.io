@@ -12,9 +12,7 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
 </head>
 <body>
-    <!-- 星空粒子层（JS 注入） -->
     <div class="starfield" aria-hidden="true"></div>
-    <!-- 鼠标光晕 -->
     <div class="cursor-blob" aria-hidden="true"></div>
 
     <header class="header">
@@ -22,27 +20,32 @@
             <a href="/" class="logo">xuanxuan.dev</a>
             <nav class="nav-links">
                 <a href="#home">首页</a>
-                <a href="#skills">技能</a>
+                <a href="#about">关于</a>
+                <a href="#skills">技能足迹</a>
+                <a href="#projects">个人项目</a>
                 <a href="#blog">博客</a>
-                <a href="#github">足迹</a>
-                <a href="{{ '/about/' | relative_url }}">关于</a>
-                <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" class="nav-github" title="我的 GitHub 主页"><i class="fa-brands fa-github"></i> GitHub <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7em;opacity:.6"></i></a>
+                <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" class="nav-github" title="我的 GitHub 主页"><i class="fa-brands fa-github"></i> GitHub</a>
             </nav>
         </div>
     </header>
 
     <section id="home" class="hero">
         <div class="container hero-content">
-            <span class="hero-tag">Online · 在线 · 闲不住</span>
-            <div class="avatar-wrapper">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ site.github_username }}&backgroundColor=b6e3f4,c0aede,d1d4f9" alt="{{ site.author.name }}" class="avatar">
-            </div>
-            <h1>Hi, I'm {{ site.author.name }}</h1>
-            <p class="hero-title"><span id="typed" class="typed"></span><span class="typed-cursor"></span></p>
-            <p class="hero-description">{{ site.description }}</p>
-            <div class="cta-row">
-                <a class="btn btn-primary" href="#blog"><i class="fa-solid fa-rocket"></i> 看看博客</a>
-                <a class="btn btn-ghost" href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+            <div class="home-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1537944434965-cf469767e8f6?w=800&q=80" alt="项目展示" class="project-img">
+                    <div class="card-badge">Featured Project</div>
+                </div>
+                <div class="card-content">
+                    <span class="hero-tag">Online · 在线 · 闲不住</span>
+                    <h1>Hi, I'm {{ site.author.name }}</h1>
+                    <p class="hero-title"><span id="typed" class="typed"></span><span class="typed-cursor"></span></p>
+                    <p class="hero-description">{{ site.description }}</p>
+                    <div class="cta-row">
+                        <a class="btn btn-primary" href="#projects"><i class="fa-solid fa-folder-open"></i> 查看项目</a>
+                        <a class="btn btn-ghost" href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+                    </div>
+                </div>
             </div>
             <div class="social-buttons">
                 <a href="https://github.com/{{ site.github_username }}" class="social-btn" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
@@ -56,10 +59,43 @@
         <div class="scroll-hint" aria-hidden="true">scroll</div>
     </section>
 
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title reveal">👤 个人介绍</h2>
+            <p class="section-subtitle reveal">// About Me</p>
+            <div class="about-grid">
+                <div class="about-card reveal">
+                    <div class="about-avatar">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ site.github_username }}&backgroundColor=b6e3f4,c0aede,d1d4f9" alt="{{ site.author.name }}">
+                    </div>
+                    <h3>{{ site.author.name }}</h3>
+                    <p class="about-bio">{{ site.author.bio }}</p>
+                    <div class="about-info">
+                        <div class="info-item"><i class="fa-solid fa-graduation-cap"></i> {{ site.author.education }}</div>
+                        <div class="info-item"><i class="fa-solid fa-map-marker-alt"></i> {{ site.author.location }}</div>
+                        <div class="info-item"><i class="fa-solid fa-envelope"></i> {{ site.email }}</div>
+                    </div>
+                </div>
+                <div class="about-content reveal">
+                    <h4>关于我</h4>
+                    <p>我是一名计算机科学专业的学生，热爱编程和技术创新。目前正在研究深度学习在医学诊断领域的应用，特别是阿尔茨海默病的早期诊断。</p>
+                    <p>我相信技术可以改变世界，致力于用代码解决实际问题。除了学习和研究，我也喜欢分享技术知识，希望能够帮助更多人进入编程的世界。</p>
+                    <h4>兴趣爱好</h4>
+                    <ul class="hobby-list">
+                        <li><i class="fa-solid fa-code"></i> 编程开发</li>
+                        <li><i class="fa-solid fa-book"></i> 阅读技术书籍</li>
+                        <li><i class="fa-solid fa-coffee"></i> 咖啡与代码</li>
+                        <li><i class="fa-solid fa-gamepad"></i> 电竞游戏</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="skills" class="section">
         <div class="container">
-            <h2 class="section-title reveal">⚡ 技术雷达</h2>
-            <p class="section-subtitle reveal">// What I build with</p>
+            <h2 class="section-title reveal">⚡ 技能足迹</h2>
+            <p class="section-subtitle reveal">// Skills & Contributions</p>
             <div class="skills-grid">
                 <div class="skill-item reveal">
                     <div class="skill-icon"><i class="fa-solid fa-code" style="color:inherit;font-size:24px"></i></div>
@@ -87,6 +123,19 @@
                 </div>
             </div>
 
+            <div class="contrib-card reveal">
+                <div class="contrib-header">
+                    <span class="contrib-title"><i class="fa-brands fa-github"></i> @{{ site.github_username }}</span>
+                    <span class="contrib-summary" id="contribSummary">加载中…</span>
+                </div>
+                <div class="contrib-grid" id="contribGrid" aria-label="GitHub contribution heatmap"></div>
+                <div class="contrib-legend">
+                    <span>少</span>
+                    <i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i>
+                    <span>多</span>
+                </div>
+            </div>
+
             <div class="tech-marquee" aria-hidden="true">
                 <div class="tech-track">
                     <span class="tech-chip"><i class="fa-brands fa-react"></i> React</span>
@@ -99,7 +148,6 @@
                     <span class="tech-chip"><i class="fa-brands fa-aws"></i> AWS</span>
                     <span class="tech-chip"><i class="fa-solid fa-database"></i> Redis</span>
                     <span class="tech-chip"><i class="fa-solid fa-cubes"></i> Kubernetes</span>
-                    <!-- duplicate for seamless loop -->
                     <span class="tech-chip"><i class="fa-brands fa-react"></i> React</span>
                     <span class="tech-chip"><i class="fa-brands fa-vuejs"></i> Vue</span>
                     <span class="tech-chip"><i class="fa-brands fa-js"></i> TypeScript</span>
@@ -111,6 +159,39 @@
                     <span class="tech-chip"><i class="fa-solid fa-database"></i> Redis</span>
                     <span class="tech-chip"><i class="fa-solid fa-cubes"></i> Kubernetes</span>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title reveal">💡 个人项目</h2>
+            <p class="section-subtitle reveal">// Personal Projects</p>
+            <div class="projects-grid">
+                {% for project in site.projects %}
+                <article class="project-card reveal">
+                    <a href="{{ project.repo }}" target="_blank" rel="noopener">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&q=80" alt="{{ project.name }}">
+                            <div class="project-overlay">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">{{ project.name }}</h3>
+                            <p class="project-description">{{ project.description }}</p>
+                            <div class="project-tags">
+                                {% for tag in project.tags %}
+                                <span class="project-tag">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="project-footer">
+                                <span class="project-repo"><i class="fa-brands fa-github"></i> View on GitHub</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -139,25 +220,6 @@
         </div>
     </section>
 
-    <section id="github" class="section">
-        <div class="container">
-            <h2 class="section-title reveal">🟩 编码足迹</h2>
-            <p class="section-subtitle reveal">// GitHub contribution graph</p>
-            <div class="contrib-card reveal">
-                <div class="contrib-header">
-                    <span class="contrib-title"><i class="fa-brands fa-github"></i> @{{ site.github_username }}</span>
-                    <span class="contrib-summary" id="contribSummary">加载中…</span>
-                </div>
-                <div class="contrib-grid" id="contribGrid" aria-label="GitHub contribution heatmap"></div>
-                <div class="contrib-legend">
-                    <span>少</span>
-                    <i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i>
-                    <span>多</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <button id="themeToggle" class="theme-toggle" type="button" aria-label="切换主题">
         <span class="theme-toggle-icon">🎨</span>
         <span class="theme-toggle-label">极光</span>
@@ -167,9 +229,10 @@
         <div class="container">
             <div class="footer-links">
                 <a href="#home">首页</a>
-                <a href="#skills">技能</a>
+                <a href="#about">关于</a>
+                <a href="#skills">技能足迹</a>
+                <a href="#projects">个人项目</a>
                 <a href="#blog">博客</a>
-                <a href="{{ '/about/' | relative_url }}">关于</a>
                 <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub</a>
             </div>
             <p>Built with <span class="footer-heart">♥</span> by {{ site.author.name }} · &copy; {{ site.time | date: "%Y" }}</p>
@@ -179,7 +242,6 @@
 
     <script>
     (function() {
-        // 1) Starfield
         var sf = document.querySelector('.starfield');
         if (sf) {
             var n = window.innerWidth < 600 ? 60 : 140;
@@ -194,7 +256,6 @@
             }
         }
 
-        // 2) Cursor blob
         var blob = document.querySelector('.cursor-blob');
         if (blob && window.matchMedia('(pointer:fine)').matches) {
             var x = window.innerWidth/2, y = window.innerHeight/2;
@@ -207,7 +268,6 @@
             })();
         }
 
-        // 3) Typewriter
         var phrases = [
             '全栈开发者 / Full-stack Developer',
             '云南大学 · 智能科学与技术',
@@ -231,7 +291,6 @@
             })();
         }
 
-        // 4) Reveal on scroll
         if ('IntersectionObserver' in window) {
             var io = new IntersectionObserver(function(entries){
                 entries.forEach(function(en){
@@ -243,7 +302,6 @@
             document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
         }
 
-        // 5) Konami easter egg
         var seq = [38,38,40,40,37,39,37,39,66,65], idx = 0;
         document.addEventListener('keydown', function(e){
             if (e.keyCode === seq[idx]) {
@@ -257,9 +315,8 @@
             } else { idx = 0; }
         });
 
-        // 6) 3D tilt on cards
         if (matchMedia('(pointer:fine)').matches) {
-            document.querySelectorAll('.skill-item, .blog-item').forEach(function(card){
+            document.querySelectorAll('.skill-item, .blog-item, .project-card').forEach(function(card){
                 card.addEventListener('mousemove', function(e){
                     var r = card.getBoundingClientRect();
                     var px = (e.clientX - r.left) / r.width;
@@ -276,7 +333,6 @@
             });
         }
 
-        // 7) Theme switcher (aurora / cyberpunk / minimal)
         var themes = ['aurora', 'cyberpunk', 'minimal'];
         var labels = { aurora: '极光', cyberpunk: '赛博', minimal: '极简' };
         var saved = localStorage.getItem('theme') || 'aurora';
@@ -296,7 +352,6 @@
             });
         }
 
-        // 8) GitHub contribution heatmap — 13 weeks, sourced from public events + repo commits
         (function loadContrib(){
             var grid = document.getElementById('contribGrid');
             var summary = document.getElementById('contribSummary');
@@ -331,7 +386,6 @@
                 return 0;
             }
             var user = '{{ site.github_username }}';
-            // Step 1: events (last ~90 days, max 300 events across 3 pages)
             var pages = [1,2,3].map(function(p){
                 return fetch('https://api.github.com/users/' + user + '/events/public?per_page=100&page=' + p)
                     .then(function(r){ return r.ok ? r.json() : []; })
@@ -348,8 +402,6 @@
                         }
                     });
                 });
-                // Step 2: also walk public repos for commits in window (covers the case where Events API
-                //          truncated history or the user pushed via integrations).
                 return fetch('https://api.github.com/users/' + user + '/repos?per_page=100&sort=pushed')
                     .then(function(r){ return r.ok ? r.json() : []; })
                     .catch(function(){ return []; })
