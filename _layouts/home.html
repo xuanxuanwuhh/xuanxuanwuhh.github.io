@@ -20,7 +20,7 @@
             <a href="/" class="logo">xuanxuan.dev</a>
             <nav class="nav-links">
                 <a href="#home">首页</a>
-                <a href="#about">关于</a>
+                <a href="/about">关于</a>
                 <a href="#skills">技能足迹</a>
                 <a href="#projects">个人项目</a>
                 <a href="#blog">博客</a>
@@ -32,18 +32,17 @@
     <section id="home" class="hero">
         <div class="container hero-content">
             <div class="home-card">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1537944434965-cf469767e8f6?w=800&q=80" alt="项目展示" class="project-img">
-                    <div class="card-badge">Featured Project</div>
-                </div>
                 <div class="card-content">
                     <span class="hero-tag">Online · 在线 · 闲不住</span>
+                    <div class="avatar-wrapper">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ site.github_username }}&backgroundColor=b6e3f4,c0aede,d1d4f9" alt="{{ site.author.name }}" class="avatar">
+                    </div>
                     <h1>Hi, I'm {{ site.author.name }}</h1>
                     <p class="hero-title"><span id="typed" class="typed"></span><span class="typed-cursor"></span></p>
                     <p class="hero-description">{{ site.description }}</p>
                     <div class="cta-row">
                         <a class="btn btn-primary" href="#projects"><i class="fa-solid fa-folder-open"></i> 查看项目</a>
-                        <a class="btn btn-ghost" href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+                        <a class="btn btn-ghost" href="/about"><i class="fa-solid fa-user"></i> 了解更多</a>
                     </div>
                 </div>
             </div>
@@ -57,39 +56,6 @@
             </div>
         </div>
         <div class="scroll-hint" aria-hidden="true">scroll</div>
-    </section>
-
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title reveal">👤 个人介绍</h2>
-            <p class="section-subtitle reveal">// About Me</p>
-            <div class="about-grid">
-                <div class="about-card reveal">
-                    <div class="about-avatar">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ site.github_username }}&backgroundColor=b6e3f4,c0aede,d1d4f9" alt="{{ site.author.name }}">
-                    </div>
-                    <h3>{{ site.author.name }}</h3>
-                    <p class="about-bio">{{ site.author.bio }}</p>
-                    <div class="about-info">
-                        <div class="info-item"><i class="fa-solid fa-graduation-cap"></i> {{ site.author.education }}</div>
-                        <div class="info-item"><i class="fa-solid fa-map-marker-alt"></i> {{ site.author.location }}</div>
-                        <div class="info-item"><i class="fa-solid fa-envelope"></i> {{ site.email }}</div>
-                    </div>
-                </div>
-                <div class="about-content reveal">
-                    <h4>关于我</h4>
-                    <p>我是一名计算机科学专业的学生，热爱编程和技术创新。目前正在研究深度学习在医学诊断领域的应用，特别是阿尔茨海默病的早期诊断。</p>
-                    <p>我相信技术可以改变世界，致力于用代码解决实际问题。除了学习和研究，我也喜欢分享技术知识，希望能够帮助更多人进入编程的世界。</p>
-                    <h4>兴趣爱好</h4>
-                    <ul class="hobby-list">
-                        <li><i class="fa-solid fa-code"></i> 编程开发</li>
-                        <li><i class="fa-solid fa-book"></i> 阅读技术书籍</li>
-                        <li><i class="fa-solid fa-coffee"></i> 咖啡与代码</li>
-                        <li><i class="fa-solid fa-gamepad"></i> 电竞游戏</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
     </section>
 
     <section id="skills" class="section">
@@ -229,7 +195,7 @@
         <div class="container">
             <div class="footer-links">
                 <a href="#home">首页</a>
-                <a href="#about">关于</a>
+                <a href="/about">关于</a>
                 <a href="#skills">技能足迹</a>
                 <a href="#projects">个人项目</a>
                 <a href="#blog">博客</a>
