@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "从零开始学习 Jekyll"
-date: 2024-05-22
+date: 2026-05-22
 categories: jekyll tutorial
 tags: jekyll, github-pages, tutorial
 ---

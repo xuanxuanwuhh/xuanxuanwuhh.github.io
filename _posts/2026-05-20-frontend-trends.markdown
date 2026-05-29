@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "2024 年前端技术趋势"
-date: 2024-05-20
+title: "2026 年前端技术趋势"
+date: 2026-05-20
 categories: frontend tech
-tags: frontend, trends, 2024
+tags: frontend, trends, 2026
 ---
 
-## 2024 年前端技术展望
+## 2026 年前端技术展望
 
-让我们一起来看看 2024 年前端开发的主流趋势。
+让我们一起来看看 2026 年前端开发的主流趋势。
 
 ### 🎯 主要趋势
 

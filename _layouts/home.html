@@ -26,6 +26,7 @@
                 <a href="#blog">博客</a>
                 <a href="#github">足迹</a>
                 <a href="{{ '/about/' | relative_url }}">关于</a>
+                <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" class="nav-github" title="我的 GitHub 主页"><i class="fa-brands fa-github"></i> GitHub <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7em;opacity:.6"></i></a>
             </nav>
         </div>
     </header>
@@ -295,53 +296,88 @@
             });
         }
 
-        // 8) GitHub contribution heatmap (unauthenticated GitHub Events API → last ~90 days)
+        // 8) GitHub contribution heatmap — 13 weeks, sourced from public events + repo commits
         (function loadContrib(){
             var grid = document.getElementById('contribGrid');
             var summary = document.getElementById('contribSummary');
             if (!grid) return;
-            var DAYS = 91; // 13 weeks
+            var DAYS = 91;
             var today = new Date(); today.setHours(0,0,0,0);
             var counts = {};
-            for (var i = 0; i < DAYS; i++) {
+            var keys = [];
+            for (var i = DAYS - 1; i >= 0; i--) {
                 var d = new Date(today); d.setDate(today.getDate() - i);
-                counts[d.toISOString().slice(0,10)] = 0;
+                var k = d.toISOString().slice(0,10);
+                counts[k] = 0; keys.push(k);
             }
+            function level(c){ return c === 0 ? 0 : c < 2 ? 1 : c < 4 ? 2 : c < 7 ? 3 : 4; }
             function render(total){
                 grid.innerHTML = '';
-                // build columns oldest -> newest
-                var cells = [];
-                for (var i = DAYS - 1; i >= 0; i--) {
-                    var d = new Date(today); d.setDate(today.getDate() - i);
-                    var key = d.toISOString().slice(0,10);
-                    var c = counts[key] || 0;
-                    var lv = c === 0 ? 0 : c < 2 ? 1 : c < 5 ? 2 : c < 10 ? 3 : 4;
-                    cells.push({ key: key, c: c, lv: lv, dow: d.getDay() });
-                }
-                cells.forEach(function(cell){
+                keys.forEach(function(k){
+                    var d = new Date(k);
+                    var c = counts[k] || 0;
                     var el = document.createElement('i');
-                    el.className = 'cell lv' + cell.lv;
-                    el.setAttribute('title', cell.key + ' · ' + cell.c + ' contributions');
-                    el.style.gridRow = (cell.dow + 1);
+                    el.className = 'cell lv' + level(c);
+                    el.title = k + ' · ' + c + (c === 1 ? ' contribution' : ' contributions');
+                    el.style.gridRow = (d.getDay() + 1);
                     grid.appendChild(el);
                 });
-                if (summary) summary.textContent = total + ' contributions in the last ' + DAYS + ' days';
+                if (summary) summary.textContent = total + ' contributions in the last 13 weeks';
             }
-            fetch('https://api.github.com/users/{{ site.github_username }}/events/public?per_page=100')
-                .then(function(r){ return r.ok ? r.json() : []; })
-                .then(function(events){
-                    var total = 0;
+            function bumpFromDate(iso, n){
+                if (!iso) return 0;
+                var k = iso.slice(0,10);
+                if (k in counts) { counts[k] += n; return n; }
+                return 0;
+            }
+            var user = '{{ site.github_username }}';
+            // Step 1: events (last ~90 days, max 300 events across 3 pages)
+            var pages = [1,2,3].map(function(p){
+                return fetch('https://api.github.com/users/' + user + '/events/public?per_page=100&page=' + p)
+                    .then(function(r){ return r.ok ? r.json() : []; })
+                    .catch(function(){ return []; });
+            });
+            Promise.all(pages).then(function(lists){
+                var total = 0;
+                lists.forEach(function(events){
                     (events || []).forEach(function(ev){
-                        var day = (ev.created_at || '').slice(0,10);
-                        if (!(day in counts)) return;
-                        var add = 1;
-                        if (ev.type === 'PushEvent' && ev.payload && ev.payload.commits) add = ev.payload.commits.length;
-                        counts[day] += add;
-                        total += add;
+                        if (ev.type === 'PushEvent' && ev.payload && ev.payload.commits) {
+                            total += bumpFromDate(ev.created_at, ev.payload.commits.length);
+                        } else if (['CreateEvent','PullRequestEvent','IssuesEvent','PullRequestReviewEvent','ReleaseEvent','IssueCommentEvent'].indexOf(ev.type) !== -1) {
+                            total += bumpFromDate(ev.created_at, 1);
+                        }
                     });
-                    render(total);
-                })
-                .catch(function(){ render(0); if (summary) summary.textContent = '加载失败 · GitHub API rate limit'; });
+                });
+                // Step 2: also walk public repos for commits in window (covers the case where Events API
+                //          truncated history or the user pushed via integrations).
+                return fetch('https://api.github.com/users/' + user + '/repos?per_page=100&sort=pushed')
+                    .then(function(r){ return r.ok ? r.json() : []; })
+                    .catch(function(){ return []; })
+                    .then(function(repos){
+                        if (!repos || !repos.length) return total;
+                        var since = keys[0] + 'T00:00:00Z';
+                        var jobs = repos.slice(0, 6).map(function(repo){
+                            return fetch('https://api.github.com/repos/' + repo.full_name + '/commits?author=' + user + '&since=' + since + '&per_page=100')
+                                .then(function(r){ return r.ok ? r.json() : []; })
+                                .then(function(commits){
+                                    (commits || []).forEach(function(c){
+                                        var d = c && c.commit && c.commit.author && c.commit.author.date;
+                                        total += bumpFromDate(d, 1);
+                                    });
+                                })
+                                .catch(function(){});
+                        });
+                        return Promise.all(jobs).then(function(){ return total; });
+                    });
+            }).then(function(total){
+                render(total);
+                if (total === 0 && summary) {
+                    summary.innerHTML = '0 contributions found · <a href="https://github.com/' + user + '" target="_blank" rel="noopener" style="color:var(--neon-cyan)">view profile →</a>';
+                }
+            }).catch(function(){
+                render(0);
+                if (summary) summary.innerHTML = '加载失败 · GitHub API rate limit · <a href="https://github.com/' + user + '" target="_blank" rel="noopener" style="color:var(--neon-cyan)">view profile →</a>';
+            });
         })();
     })();
     </script>

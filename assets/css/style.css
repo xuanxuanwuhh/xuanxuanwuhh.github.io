@@ -187,6 +187,29 @@ body::after {
 .nav-links a:hover { color: var(--text-primary); }
 .nav-links a:hover::after { width: 100%; }
 
+.nav-github {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem !important;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  background: rgba(168, 85, 247, 0.08);
+  color: var(--text-primary) !important;
+  transition: all 0.3s ease;
+}
+.nav-github:hover {
+  border-color: var(--neon-purple);
+  background: rgba(168, 85, 247, 0.18);
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.35);
+  transform: translateY(-1px);
+}
+.nav-github::after { display: none !important; }
+@media (max-width: 768px) {
+  .nav-github { padding: 0.25rem 0.6rem !important; font-size: 0.78rem; }
+  .nav-github i.fa-arrow-up-right-from-square { display: none; }
+}
+
 /* ----------------- Hero ----------------- */
 .hero {
   padding: 8rem 0 5rem;
