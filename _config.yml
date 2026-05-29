@@ -1,32 +1,37 @@
 title: Xuanxuan Wu
-email: 15620168919@163.com
-description: >-
-  欢迎来到我的个人主页！这里记录我的技术博客、项目作品和生活感悟。
+description: 全栈开发者 · 一直在学习 · 用代码记录世界 ✨
 baseurl: ""
 url: "https://xuanxuanwuhh.github.io"
+
+email: 15620168919@163.com
 twitter_username: xuanxuanwuhh
 github_username: xuanxuanwuhh
 
 markdown: kramdown
-theme: minima
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+
 exclude:
   - Gemfile
   - Gemfile.lock
   - docker-compose.yml
+  - Dockerfile
   - README.md
+  - .jekyll-cache
+  - vendor
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
 author:
   name: Xuanxuan Wu
-  bio: 全栈开发者 | 热爱技术 | 持续学习
-  avatar: https://via.placeholder.com/150
+  bio: 全栈开发者 · 热爱技术 · 持续学习
+  avatar: https://api.dicebear.com/7.x/avataaars/svg?seed=xuanxuanwuhh
 
 social_links:
-  - { platform: github, url: "https://github.com/xuanxuanwuhh" }
-  - { platform: twitter, url: "https://twitter.com/xuanxuanwuhh" }
+  - { platform: github,   url: "https://github.com/xuanxuanwuhh" }
+  - { platform: twitter,  url: "https://twitter.com/xuanxuanwuhh" }
   - { platform: linkedin, url: "https://linkedin.com/in/xuanxuanwuhh" }
 
 show_excerpts: true
-paginate: 5

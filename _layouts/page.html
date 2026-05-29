@@ -3,28 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} - {{ site.title }}</title>
+    <title>{{ page.title }} · {{ site.title }}</title>
     <meta name="description" content="{{ site.description }}">
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
 </head>
 <body>
+    <div class="starfield" aria-hidden="true"></div>
+    <div class="cursor-blob" aria-hidden="true"></div>
+
     <header class="header">
         <div class="container">
-            <div class="logo">{{ site.title }}</div>
+            <a href="{{ '/' | relative_url }}" class="logo">xuanxuan.dev</a>
             <nav class="nav-links">
-                <a href="/#home">首页</a>
-                <a href="/#skills">技能</a>
-                <a href="/#blog">博客</a>
-                <a href="/about">关于</a>
+                <a href="{{ '/' | relative_url }}#home">首页</a>
+                <a href="{{ '/' | relative_url }}#skills">技能</a>
+                <a href="{{ '/' | relative_url }}#blog">博客</a>
+                <a href="{{ '/about/' | relative_url }}">关于</a>
             </nav>
         </div>
     </header>
 
     <main class="section">
         <div class="container">
+            <a href="{{ '/' | relative_url }}" class="post-back"><i class="fa-solid fa-arrow-left"></i> 返回首页</a>
             <div class="about-content">
-                <h1 class="section-title">{{ page.title }}</h1>
+                <h1 class="section-title" style="font-size:2rem;text-align:left;margin-bottom:1.5rem;">{{ page.title }}</h1>
                 {{ content }}
             </div>
         </div>
@@ -33,13 +38,41 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-links">
-                <a href="/#home">首页</a>
-                <a href="/#skills">技能</a>
-                <a href="/#blog">博客</a>
-                <a href="/about">关于</a>
+                <a href="{{ '/' | relative_url }}#home">首页</a>
+                <a href="{{ '/' | relative_url }}#skills">技能</a>
+                <a href="{{ '/' | relative_url }}#blog">博客</a>
+                <a href="{{ '/about/' | relative_url }}">关于</a>
             </div>
-            <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
+            <p>Built with <span class="footer-heart">♥</span> by {{ site.author.name }} · &copy; {{ site.time | date: "%Y" }}</p>
         </div>
     </footer>
+
+    <script>
+    (function() {
+        var sf = document.querySelector('.starfield');
+        if (sf) {
+            var n = window.innerWidth < 600 ? 50 : 100;
+            for (var i = 0; i < n; i++) {
+                var s = document.createElement('div');
+                s.className = 'star' + (Math.random() > 0.85 ? ' big' : '');
+                s.style.left = (Math.random() * 100) + '%';
+                s.style.top  = (Math.random() * 100) + '%';
+                s.style.animationDelay = (Math.random() * 3) + 's';
+                s.style.animationDuration = (2 + Math.random() * 3) + 's';
+                sf.appendChild(s);
+            }
+        }
+        var blob = document.querySelector('.cursor-blob');
+        if (blob && window.matchMedia('(pointer:fine)').matches) {
+            var x = innerWidth/2, y = innerHeight/2, tx = x, ty = y;
+            addEventListener('mousemove', function(e){ tx=e.clientX; ty=e.clientY; });
+            (function tick(){
+                x += (tx-x)*0.12; y += (ty-y)*0.12;
+                blob.style.transform = 'translate('+x+'px,'+y+'px) translate(-50%,-50%)';
+                requestAnimationFrame(tick);
+            })();
+        }
+    })();
+    </script>
 </body>
 </html>
