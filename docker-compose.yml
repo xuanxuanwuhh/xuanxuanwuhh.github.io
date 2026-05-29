@@ -1,0 +1,102 @@
+# ==============================================================
+# Docker-Compose for the whole "app" workspace.
+# 把当前目录（D:\createExperiment\project\app）整体挂到容器 /srv/jekyll，
+# 不需要本机装 Ruby / Jekyll。
+#
+# 使用：
+#   开发预览：              docker compose up jekyll
+#                           http://localhost:4000
+#   构建到 ./_site：        docker compose run --rm build
+#   开 shell 调试：         docker compose run --rm shell
+#   构建 xuanxuanwuhh.github.io（子目录）：
+#                           docker compose run --rm xuan-build
+#   预览 xuanxuanwuhh.github.io：
+#                           docker compose up xuan-dev
+#                           http://localhost:4001
+# ==============================================================
+
+services:
+  # ---------- 顶层目录的 Jekyll 站点 ----------
+  jekyll:
+    image: jekyll/jekyll:4.2.2
+    container_name: app-jekyll-dev
+    ports:
+      - "4000:4000"
+      - "35729:35729"
+    volumes:
+      - .:/srv/jekyll
+      - app-bundle:/usr/local/bundle
+    environment:
+      - JEKYLL_ENV=development
+    command: >
+      bash -lc "
+        bundle install --quiet &&
+        jekyll serve --host 0.0.0.0 --port 4000 --livereload --force_polling
+      "
+    restart: unless-stopped
+
+  build:
+    image: jekyll/jekyll:4.2.2
+    container_name: app-jekyll-build
+    profiles: ["build"]
+    volumes:
+      - .:/srv/jekyll
+      - app-bundle:/usr/local/bundle
+    environment:
+      - JEKYLL_ENV=production
+    command: >
+      bash -lc "
+        bundle install --quiet &&
+        jekyll build --trace --destination /srv/jekyll/_site
+      "
+
+  shell:
+    image: jekyll/jekyll:4.2.2
+    container_name: app-jekyll-shell
+    profiles: ["tools"]
+    volumes:
+      - .:/srv/jekyll
+      - app-bundle:/usr/local/bundle
+    entrypoint: ["bash"]
+    stdin_open: true
+    tty: true
+
+  # ---------- 子目录 xuanxuanwuhh.github.io 的 Jekyll 站点 ----------
+  xuan-dev:
+    image: jekyll/jekyll:4.2.2
+    container_name: xuan-jekyll-dev
+    profiles: ["xuan"]
+    working_dir: /srv/jekyll/xuanxuanwuhh.github.io
+    ports:
+      - "4001:4000"
+      - "35730:35729"
+    volumes:
+      - .:/srv/jekyll
+      - xuan-bundle:/usr/local/bundle
+    environment:
+      - JEKYLL_ENV=development
+    command: >
+      bash -lc "
+        bundle install --quiet &&
+        jekyll serve --host 0.0.0.0 --port 4000 --livereload --livereload-port 35729 --force_polling
+      "
+
+  xuan-build:
+    image: jekyll/jekyll:4.2.2
+    container_name: xuan-jekyll-build
+    profiles: ["xuan"]
+    working_dir: /srv/jekyll/xuanxuanwuhh.github.io
+    volumes:
+      - .:/srv/jekyll
+      - xuan-bundle:/usr/local/bundle
+    environment:
+      - JEKYLL_ENV=production
+    command: >
+      bash -lc "
+        bundle install --quiet &&
+        jekyll build --trace --destination /srv/jekyll/xuanxuanwuhh.github.io/_site
+      "
+
+volumes:
+  app-bundle:
+  xuan-bundle:

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My GitHub Page - Preview</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; background: #fff; }
+        .header { background: #24292e; color: #fff; padding: 1rem 0; }
+        .header .wrapper { max-width: 800px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .site-title { font-size: 1.5rem; font-weight: 600; }
+        .nav a { color: #ccc; text-decoration: none; margin-left: 1.5rem; }
+        .nav a:hover { color: #fff; }
+        .main { max-width: 800px; margin: 0 auto; padding: 2rem; }
+        h1 { font-size: 2rem; margin-bottom: 1rem; color: #24292e; }
+        h2 { font-size: 1.5rem; margin: 1.5rem 0 1rem; color: #24292e; }
+        p { margin-bottom: 1rem; }
+        ul { margin-left: 1.5rem; margin-bottom: 1rem; }
+        .footer { background: #f6f8fa; border-top: 1px solid #e1e4e8; padding: 2rem 0; margin-top: 2rem; }
+        .footer .wrapper { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
+        .feature-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .feature { background: #f6f8fa; padding: 1.5rem; border-radius: 6px; text-align: center; }
+        .feature .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        code { background: #f6f8fa; padding: 0.2em 0.4em; border-radius: 3px; font-size: 85%; }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="wrapper">
+            <div class="site-title">My GitHub Page</div>
+            <nav class="nav">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#posts">Posts</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section id="home">
+            <h1>Welcome to My GitHub Page!</h1>
+            <p>This is a beautiful Jekyll site hosted on GitHub Pages.</p>
+            
+            <h2>Features</h2>
+            <div class="feature-list">
+                <div class="feature">
+                    <div class="icon">✨</div>
+                    <div>Modern design with Minima theme</div>
+                </div>
+                <div class="feature">
+                    <div class="icon">📱</div>
+                    <div>Responsive layout</div>
+                </div>
+                <div class="feature">
+                    <div class="icon">🎨</div>
+                    <div>Customizable</div>
+                </div>
+                <div class="feature">
+                    <div class="icon">🚀</div>
+                    <div>Automatic deployment with GitHub Actions</div>
+                </div>
+            </div>
+
+            <h2>About Me</h2>
+            <p>I'm learning Jekyll and GitHub Pages to create my personal homepage.</p>
+
+            <h2>Links</h2>
+            <ul>
+                <li><a href="https://jekyllrb.com/" target="_blank">Jekyll Documentation</a></li>
+                <li><a href="https://pages.github.com/" target="_blank">GitHub Pages</a></li>
+            </ul>
+        </section>
+
+        <section id="about">
+            <h1>About</h1>
+            <h2>About This Site</h2>
+            <p>This is my personal GitHub Page built with Jekyll. It's automatically deployed using GitHub Actions.</p>
+
+            <h2>Technologies Used</h2>
+            <ul>
+                <li><strong>Jekyll</strong> - Static site generator</li>
+                <li><strong>GitHub Pages</strong> - Hosting</li>
+                <li><strong>GitHub Actions</strong> - CI/CD</li>
+                <li><strong>Minima</strong> - Theme</li>
+            </ul>
+
+            <h2>Goals</h2>
+            <ul>
+                <li>Learn Jekyll and static site generation</li>
+                <li>Create a professional online presence</li>
+                <li>Share my projects and thoughts</li>
+            </ul>
+        </section>
+
+        <section id="posts">
+            <h1>Welcome to Jekyll!</h1>
+            <p>Posted on January 1, 2024</p>
+            <p>You'll find this post in your <code>_posts</code> directory. Go ahead and edit it and re-build the site to see your changes.</p>
+            
+            <h2>Code Snippet Example</h2>
+            <pre><code>def print_hi(name)
+  puts "Hi, #{name}"
+end
+print_hi('Tom')
+#=> prints 'Hi, Tom' to STDOUT.</code></pre>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="wrapper">
+            <h2>My GitHub Page</h2>
+            <p>A beautiful Jekyll site hosted on GitHub Pages</p>
+        </div>
+    </footer>
+</body>
+</html>

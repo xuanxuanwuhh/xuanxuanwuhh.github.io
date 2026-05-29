@@ -1,0 +1,10 @@
+title: My GitHub Page
+description: A beautiful Jekyll site hosted on GitHub Pages
+baseurl: ""
+url: "https://yourusername.github.io"
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+markdown: kramdown
+highlighter: rouge
