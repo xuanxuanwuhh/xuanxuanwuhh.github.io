@@ -6,9 +6,14 @@ on:
       - main
 
 jobs:
+<<<<<<< HEAD
   build:
     runs-on: ubuntu-latest
 
+=======
+  build-and-deploy:
+    runs-on: ubuntu-latest
+>>>>>>> beac5341c82d6a89e8d6bde1ee5b7b3b51a46c32
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -21,9 +26,12 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
+<<<<<<< HEAD
       - name: Install dependencies
         run: bundle install
 
+=======
+>>>>>>> beac5341c82d6a89e8d6bde1ee5b7b3b51a46c32
       - name: Build Jekyll site
         run: bundle exec jekyll build
 
@@ -33,3 +41,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./_site
           publish_branch: gh-pages
+<<<<<<< HEAD
+=======
+          force_orphan: true
+>>>>>>> beac5341c82d6a89e8d6bde1ee5b7b3b51a46c32
